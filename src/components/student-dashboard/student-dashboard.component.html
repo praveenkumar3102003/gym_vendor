@@ -1,0 +1,90 @@
+
+<div class="container">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <div class="welcome-section">
+        <h1 class="dashboard-title">Welcome, {{ user?.name }}!</h1>
+        <p class="user-role">Student Dashboard</p>
+      </div>
+      <button class="btn btn-danger logout-btn" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="gym-status-section">
+    <div class="card status-card">
+      <div class="card-header">
+        <h2 class="card-title">Gym Status</h2>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-error">
+        {{ errorMessage }}
+      </div>
+
+      <div class="status-display">
+        <div *ngIf="isLoading" class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Loading gym status...</p>
+        </div>
+
+        <div *ngIf="!isLoading" class="status-content">
+          <div class="status-indicator">
+            <div 
+              class="status-icon"
+              [ngClass]="{
+                'status-open': gymStatus === 'open',
+                'status-closed': gymStatus === 'closed' || gymStatus === 'unknown'
+              }"
+            >
+              <span *ngIf="gymStatus === 'open'">🏃‍♂️</span>
+              <span *ngIf="gymStatus === 'closed'">🔒</span>
+              <span *ngIf="gymStatus === 'unknown'">❓</span>
+            </div>
+            <div class="status-text">
+              <h3 
+                class="status-title"
+                [ngClass]="{
+                  'text-success': gymStatus === 'open',
+                  'text-danger': gymStatus === 'closed',
+                  'text-warning': gymStatus === 'unknown'
+                }"
+              >
+                {{ gymStatus === 'open' ? 'Gym is Open' : 
+                   gymStatus === 'closed' ? 'Gym is Closed' : 
+                   'Status Unknown' }}
+              </h3>
+              <p class="status-description">
+                <span *ngIf="gymStatus === 'open'">
+                  Great! The gym is currently open and ready for your workout.
+                </span>
+                <span *ngIf="gymStatus === 'closed'">
+                  The gym is currently closed. Please check back later.
+                </span>
+                <span *ngIf="gymStatus === 'unknown'">
+                  Unable to determine gym status.
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="status-info" *ngIf="lastUpdated">
+            <small class="last-updated">
+              ⏰ Last updated: {{ lastUpdated }}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-info">
+    <div class="card info-card">
+      <h3>Quick Information</h3>
+      <ul class="info-list">
+        <li>Gym hours may vary based on trainer availability</li>
+        <li>Contact your trainer for specific schedules</li>
+      </ul>
+    </div>
+  </div>
+</div>

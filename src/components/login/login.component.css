@@ -1,0 +1,144 @@
+/* Background setup */
+.login-background {
+  background-image: url('https://skct.edu.in/wp-content/uploads/2024/04/SKCT-College-Campus-19.jpg'); /* Replace with your actual image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center wrapper */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
+
+/* Updated login card */
+.login-card {
+  width: 700%;
+  max-width: 550px; /* Increased width */
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Titles and subtitles */
+.login-title {
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: #d70808;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login-subtitle {
+  color: #374151;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Form layout */
+.form-group {
+  margin-bottom: 1.3rem;
+}
+
+.form-label {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 1rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: 800;
+  margin-top: 10px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:disabled {
+  background-color: #9bbcdf;
+  cursor: not-allowed;
+}
+
+.login-btn:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+/* Error alert */
+.alert-error {
+  background-color: #fdecea;
+  color: #b91c1c;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  border-left: 5px solid #f87171;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Register link */
+.register-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 800;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.text-center p {
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-card {
+    max-width: 90%;
+    padding: 2rem;
+  }
+
+  .login-title {
+    font-size: 2.4rem;
+  }
+
+  .login-subtitle {
+    font-size: 1.1rem;
+  }
+}
