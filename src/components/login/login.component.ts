@@ -81,16 +81,24 @@ export class LoginComponent {
 
     this.authService.login(this.loginData).subscribe({
       next: () => {
-        this.isLoading = false;
-        const user = this.authService.getCurrentUser();
+        // ✅ Wait for currentUser$ to emit
+        this.authService.currentUser$.subscribe(user => {
+          this.isLoading = false;
+          if (!user) {
+            this.errorMessage = 'User info not available. Please try again.';
+            return;
+          }
 
-        if (user?.role === 'trainer') {
-          this.router.navigate(['/trainer-dashboard']);
-        } else if (user?.role === 'Student') {
-          this.router.navigate(['/student-dashboard']);
-        } else {
-          this.router.navigate(['/dashboard']); // fallback
-        }
+          console.log('Logged in user role:', user.role);
+
+          if (user.role === 'trainer') {
+            this.router.navigate(['/trainer-dashboard']);
+          } else if (user.role === 'Student') {
+            this.router.navigate(['/student-dashboard']);
+          } else {
+            this.router.navigate(['/dashboard']); // fallback
+          }
+        });
       },
       error: (error) => {
         this.isLoading = false;
