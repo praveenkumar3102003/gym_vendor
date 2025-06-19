@@ -369,7 +369,7 @@ export class DashboardComponent implements OnInit {
     const lowerRole = role.toLowerCase();
     this.isLoading = false;
 
-    if (lowerRole === 'student') {
+    if (lowerRole === 'Student') {
       this.router.navigate(['/student-dashboard']);
     } else if (lowerRole === 'trainer' || lowerRole === 'master') {
       this.router.navigate(['/trainer-dashboard']);
