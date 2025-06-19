@@ -1,121 +1,49 @@
-<div class="container">
+<div class="dashboard-container">
   <div class="dashboard-header">
-    <div class="header-content">
-      <div class="welcome-section">
-        <h1 class="dashboard-title">Welcome, {{ user?.name }}!</h1>
-        <p class="user-role">{{ user?.role | titlecase }} Dashboard</p>
-      </div>
-      <button class="btn btn-danger logout-btn" (click)="logout()">
-        Logout
+    <h2>Welcome, {{ user?.name }} <span class="role">({{ user?.role | titlecase }})</span></h2>
+    <button class="btn logout-btn" (click)="logout()">Logout</button>
+  </div>
+
+  <div class="card">
+    <h3>🏋️ Gym Status</h3>
+    <p class="status">Current Status: <strong>{{ currentGymStatus | titlecase }}</strong></p>
+    <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
+
+    <div class="form-group">
+      <label for="statusSelect">Change Status:</label>
+      <select id="statusSelect" [(ngModel)]="newStatus" class="form-control">
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+        <!-- <option value="maintenance">Maintenance</option> -->
+      </select>
+      <button class="btn update-btn" (click)="updateGymStatus()" [disabled]="isUpdating">
+        Update Status
       </button>
     </div>
+
+    <div *ngIf="successMessage" class="alert success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert error">{{ errorMessage }}</div>
   </div>
 
-  <div class="status-management-section">
-    <div class="card status-card">
-      <div class="card-header">
-        <h2 class="card-title">Gym Status Management</h2>
-      </div>
-
-      <div *ngIf="errorMessage" class="alert alert-error">
-        {{ errorMessage }}
-      </div>
-
-      <div *ngIf="successMessage" class="alert alert-success">
-        {{ successMessage }}
-      </div>
-
-      <div class="current-status-section">
-        <h3 class="section-title">Current Status</h3>
-        <div *ngIf="isLoading" class="loading-spinner">
-          <div class="spinner"></div>
-          <p>Loading current status...</p>
-        </div>
-
-        <div *ngIf="!isLoading" class="current-status-display">
-          <div class="status-indicator">
-            <span 
-              class="status-badge"
-              [ngClass]="{
-                'status-open': currentGymStatus === 'open',
-                'status-closed': currentGymStatus === 'closed' || currentGymStatus === 'unknown'
-              }"
-            >
-              {{ currentGymStatus | titlecase }}
-            </span>
-            <div class="status-icon">
-              <span *ngIf="currentGymStatus === 'open'">🏃‍♂️</span>
-              <span *ngIf="currentGymStatus === 'closed'">🔒</span>
-              <span *ngIf="currentGymStatus === 'unknown'">❓</span>
-            </div>
-          </div>
-          <p class="last-updated highlight" *ngIf="lastUpdated">
-            🕒 Last updated: <strong>{{ lastUpdated }}</strong>
-          </p>
-        </div>
-      </div>
-
-      <div class="status-update-section">
-        <h3 class="section-title">Update Status</h3>
-        <form (ngSubmit)="updateGymStatus()" class="update-form">
-          <div class="form-group">
-            <label for="newStatus" class="form-label">Select New Status</label>
-            <select
-              id="newStatus"
-              name="newStatus"
-              class="form-control"
-              [(ngModel)]="newStatus"
-              required
-            >
-              <option value="open">Open</option>
-              <option value="closed">Closed</option>
-            </select>
-          </div>
-
-          <button 
-            type="submit" 
-            class="btn btn-success update-btn"
-            [disabled]="isUpdating || !newStatus || newStatus === currentGymStatus"
-          >
-            <span *ngIf="isUpdating">Updating...</span>
-            <span *ngIf="!isUpdating">Update Gym Status</span>
-          </button>
-        </form>
-      </div>
-    </div>
+  <div class="card add-user-card">
+    <button class="btn add-btn" (click)="navigateToRegistration()">➕ Add New User</button>
   </div>
 
-  <div class="quick-actions">
-    <div class="card actions-card">
-      <h3>Quick Actions</h3>
-      <div class="action-buttons">
-        <button 
-          class="btn btn-success quick-action-btn"
-          (click)="newStatus = 'open'; updateGymStatus()"
-          [disabled]="isUpdating || currentGymStatus === 'open'"
-        >
-          🏃‍♂️ Open Gym
-        </button>
-        <button 
-          class="btn btn-warning quick-action-btn"
-          (click)="newStatus = 'closed'; updateGymStatus()"
-          [disabled]="isUpdating || currentGymStatus === 'closed'"
-        >
-          🔒 Close Gym
-        </button>
-      </div>
-    </div>
-  </div>
+  <div class="card">
+    <h3>👥 Registered Students</h3>
 
-  <div class="trainer-info">
-    <div class="card info-card">
-      <h3>Trainer Guidelines</h3>
-      <ul class="info-list">
-        <li>Update gym status at the beginning and end of each session</li>
-        <li>Ensure gym is marked as "Closed" when no supervision is available</li>
-        <li>Students rely on these updates to plan their workout schedules</li>
-        <li>Use quick actions for faster status updates</li>
-      </ul>
+    <div *ngIf="isUsersLoading" class="loading">Loading students...</div>
+
+    <div *ngIf="!isUsersLoading && registeredStudents.length === 0">
+      <p>No students registered yet.</p>
     </div>
+
+    <ul class="student-list" *ngIf="registeredStudents.length > 0">
+      <li *ngFor="let student of registeredStudents" class="student-card animate-fade-in">
+        <span class="student-name">{{ student.name }}</span>
+        <span class="student-email">{{ student.email }}</span>
+        <span class="student-role">{{ student.role | titlecase }}</span>
+      </li>
+    </ul>
   </div>
 </div>
