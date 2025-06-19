@@ -86,7 +86,7 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.get<any>(`${this.apiUrl}/auth/me`, { headers }).pipe(
+    return this.http.get<any>(`${this.apiUrl}/me`, { headers }).pipe(
       tap(response => {
         console.log('Token validation response:', response);
       }),
@@ -97,11 +97,11 @@ export class AuthService {
   }
 
   register(credentials: NewUserCredentials): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/new_user`, credentials);
+    return this.http.post(`${this.apiUrl}/new_user`, credentials);
   }
 
   login(credentials: UserLogin): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, credentials).pipe(
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
         const token = response.token || response.access_token;
         const refreshToken = response.refresh_token;
@@ -174,7 +174,7 @@ export class AuthService {
   logout(): void {
     const token = this.getStoredToken();
     if (token) {
-      this.http.post(`${this.apiUrl}/auth/logout`, {}, {
+      this.http.post(`${this.apiUrl}/logout`, {}, {
         headers: this.getAuthHeaders()
       }).subscribe({
         complete: () => {},
