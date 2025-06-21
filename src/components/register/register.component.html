@@ -1,214 +1,123 @@
-<!-- <div class="container">
-  <div class="register-wrapper">
-    <div class="card register-card">
-      <div class="text-center mb-3">
-        <h1 class="register-title">Join Gym Flow</h1>
-        <p class="register-subtitle">Create your account</p>
-      </div>
-
-      <div *ngIf="errorMessage" class="alert alert-error">
-        {{ errorMessage }}
-      </div>
-
-      <div *ngIf="successMessage" class="alert alert-success">
-        {{ successMessage }}
-      </div>
-
-      <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-        <div class="form-group">
-          <label for="name" class="form-label">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            class="form-control"
-            [(ngModel)]="registerData.name"
-            required
-            placeholder="Enter your full name"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="email" class="form-label">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            [(ngModel)]="registerData.email"
-            required
-            email
-            placeholder="Enter your email"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="role" class="form-label">Role</label>
-          <select
-            id="role"
-            name="role"
-            class="form-control"
-            [(ngModel)]="registerData.role"
-            required
-          >
-            <option value="Student">Student</option>
-            <option value="trainer">Trainer</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            [(ngModel)]="registerData.password"
-            required
-            minlength="6"
-            placeholder="Enter your password"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="confirmPassword" class="form-label">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            class="form-control"
-            [(ngModel)]="confirmPassword"
-            required
-            placeholder="Confirm your password"
-          />
-        </div>
-
-        <button 
-          type="submit" 
-          class="btn btn-primary register-btn"
-          [disabled]="isLoading || !registerForm.valid"
-        >
-          <span *ngIf="isLoading">Creating Account...</span>
-          <span *ngIf="!isLoading">Create Account</span>
-        </button>
-      </form>
-
-      <div class="text-center mt-3">
-        <p>Already have an account? 
-          <a routerLink="/login" class="login-link">Sign in here</a>
-        </p>
-      </div>
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <h1 class="register-title">Create Account</h1>
+      <p class="register-subtitle">Join our gym community today!</p>
     </div>
-  </div>
-</div> -->
 
-<div class="container">
-  <div class="register-wrapper">
-    <div class="card register-card">
-      <div class="text-center mb-3">
-        <h1 class="register-title">Join Gym Flow</h1>
-        <p class="register-subtitle">Create your account</p>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="register-form">
+      <div class="form-group">
+        <label for="name" class="form-label">
+          <i class="icon">👤</i>
+          Full Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="registerData.name"
+          required
+          class="form-input"
+          placeholder="Enter your full name"
+          [class.error]="errorMessage && !registerData.name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">
+          <i class="icon">📧</i>
+          Email Address
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="registerData.email"
+          required
+          class="form-input"
+          placeholder="Enter your email"
+          [class.error]="errorMessage && !registerData.email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="role" class="form-label">
+          <i class="icon">🏋️</i>
+          Role
+        </label>
+        <select
+          id="role"
+          name="role"
+          [(ngModel)]="registerData.role"
+          class="form-select"
+        >
+          <option value="student">Student</option>
+          <option value="instructor">Instructor</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">
+          <i class="icon">🔒</i>
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="registerData.password"
+          required
+          class="form-input"
+          placeholder="Enter your password"
+          [class.error]="errorMessage && !registerData.password"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">
+          <i class="icon">🔐</i>
+          Confirm Password
+        </label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          required
+          class="form-input"
+          placeholder="Confirm your password"
+          [class.error]="errorMessage && registerData.password !== confirmPassword"
+        />
       </div>
 
       <div *ngIf="errorMessage" class="alert alert-error">
+        <i class="alert-icon">⚠️</i>
         {{ errorMessage }}
       </div>
 
       <div *ngIf="successMessage" class="alert alert-success">
+        <i class="alert-icon">✅</i>
         {{ successMessage }}
       </div>
 
-      <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-        <!-- Full Name -->
-        <div class="form-group">
-          <label for="name" class="form-label">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            class="form-control"
-            [(ngModel)]="registerData.name"
-            required
-            placeholder="Enter your full name"
-          />
-        </div>
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="isLoading || !registerForm.valid"
+        [class.loading]="isLoading"
+      >
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading" class="loading-text">
+          <i class="loading-spinner">⏳</i>
+          Creating Account...
+        </span>
+      </button>
+    </form>
 
-        <!-- Email -->
-        <div class="form-group">
-          <label for="email" class="form-label">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            [(ngModel)]="registerData.email"
-            required
-            email
-            placeholder="Enter your email"
-          />
-        </div>
-
-        <!-- Role -->
-        <div class="form-group">
-          <label for="role" class="form-label">Role</label>
-          <select
-            id="role"
-            name="role"
-            class="form-control"
-            [(ngModel)]="registerData.role"
-            required
-          >
-            <option value="student">Student</option>
-            <!-- <option value="trainer">Trainer</option> -->
-          </select>
-        </div>
-
-        <!-- Password -->
-        <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            [(ngModel)]="registerData.password"
-            required
-            minlength="6"
-            placeholder="Enter your password"
-          />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="form-group">
-          <label for="confirmPassword" class="form-label">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            class="form-control"
-            [(ngModel)]="confirmPassword"
-            required
-            placeholder="Confirm your password"
-          />
-        </div>
-
-        <!-- Submit Button -->
-        <button 
-          type="submit" 
-          class="btn btn-primary register-btn"
-          [disabled]="isLoading || !registerForm.valid"
-        >
-          <span *ngIf="isLoading">Creating Account...</span>
-          <span *ngIf="!isLoading">Create Account</span>
-        </button>
-      </form>
-
-      <!-- Redirect to Login -->
-      <div class="text-center mt-3">
-        <p>Already have an account? 
-          <a routerLink="/login" class="login-link">Sign in here</a>
-        </p>
-      </div>
+    <div class="register-footer">
+      <p>Already have an account?</p>
+      <a routerLink="/login" class="login-link">Sign In</a>
     </div>
   </div>
 </div>
