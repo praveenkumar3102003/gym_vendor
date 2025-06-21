@@ -145,7 +145,7 @@ import { NewUserCredentials } from '../../models/user.model';
 export class RegisterComponent {
   registerData: NewUserCredentials = {
     name: '',
-    role: 'Student',
+    role: 'student',
     email: '',
     password: ''
   };
