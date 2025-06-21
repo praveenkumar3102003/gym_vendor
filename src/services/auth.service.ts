@@ -411,9 +411,8 @@ export class AuthService {
   }
 
   register(credentials: NewUserCredentials): Observable<any> {
-    return this.http.post(`${this.apiUrl}/new_user`, credentials);
+    return this.http.post(`${this.apiUrl}/register`, credentials);
   }
-
   login(credentials: UserLogin): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
@@ -460,7 +459,7 @@ export class AuthService {
       return throwError(() => new Error('No refresh token available'));
     }
 
-    return this.http.post<any>(`${this.apiUrl}/auth/refresh`, {
+    return this.http.post<any>(`${this.apiUrl}/refresh`, {
       refresh_token: refreshToken
     }).pipe(
       tap(response => {
