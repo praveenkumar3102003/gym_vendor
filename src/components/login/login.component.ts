@@ -95,7 +95,7 @@ export class LoginComponent {
             this.router.navigate(['/trainer-dashboard']);
           } else if (user.role === 'Student') {
             this.router.navigate(['/student-dashboard']);
-          } 
+          }
         });
       },
       error: (error) => {
