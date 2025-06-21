@@ -15,7 +15,7 @@ import { NewUserCredentials } from '../../models/user.model';
 export class RegisterComponent {
   registerData: NewUserCredentials = {
     name: '',
-    role: 'student', // Default role is always student, hidden from form
+    role: 'Student', // Default role is always student, hidden from form
     email: '',
     password: ''
   };
