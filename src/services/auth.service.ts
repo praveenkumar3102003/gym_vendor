@@ -245,11 +245,11 @@ export class AuthService {
   }
 
   getGymStatus(): Observable<any> {
-    return this.authenticatedRequest('GET', '/gym/status');
+    return this.authenticatedRequest('GET', '/gym-status');
   }
 
   updateGymStatus(status: string): Observable<any> {
-    return this.authenticatedRequest('POST', '/gym/updates', { status });
+    return this.authenticatedRequest('POST', '/gym-status', { status });
   }
 
   getUsers(): Observable<any> {
